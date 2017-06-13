@@ -90,21 +90,21 @@ One last note here: regardless of the IDE used, every submitted project must
 still be compilable with cmake and make./
 
 
-Reflection
+# Reflection
 
-PID Components
+## PID Components
 
 P accounts for the current cte (Cross Track Error). So the further the car is from the reference line, the stronger the output value will be. A high coefficient will allow the car to react quickly but also cause it to overshoot and oscillate.
 
-I accounts for error values in the past. In this case it is sum over all errors.
+I accounts for error values in the past. The integral is the sum of the instantaneous error over time and gives the accumulated error that should have been corrected previously. The accumulated error is then multiplied by the integral gain (Ki) and added to the controller output.
 
-D accounts for possible future trends of the error, based on its current rate of change. A higher coefficient reduces overshooting and therefore helps the car to stay on the reference line.
+D accounts for possible future trends of the error, based on its current rate of change. A higher coefficient was found to prevent overshooting thereby helping the car to stay on the reference line. This error is calculated by determining the slope of the error over time and multiplying this rate of change by the derivative gain Kd
 
-Parameter Tuning
+## Parameter Tuning
 
-The P, I and D coefficients were tuned by hand. In the beginning only value for Kp was set which was causing the car to overshoot. In the next step Kd was gradually increased until the car was able to quickly reach it's reference. For Ki, a very small value was chosen since the simulator has basically no steering bias.
+The P, I and D coefficients were tuned by hand. In the beginning only value for Kp (between 0 and 1) was set which was causing the car to overshoot. In the next step Kd was gradually increased until the car was able to prevent overshooting and reach it's reference. For Ki, a very small value was chosen since the simulator has basically no steering bias.
 
-The final values for the coefficients are:
+## The final values for the coefficients are:
 
 Kp = 0.22
 Ki = 0.0003
