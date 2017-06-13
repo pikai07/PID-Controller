@@ -88,3 +88,25 @@ that's just a guess.
 
 One last note here: regardless of the IDE used, every submitted project must
 still be compilable with cmake and make./
+
+
+Reflection
+
+PID Components
+
+P accounts for the current cte (Cross Track Error). So the further the car is from the reference line, the stronger the output value will be. A high coefficient will allow the car to react quickly but also cause it to overshoot and oscillate.
+
+I accounts for error values in the past. In this case it is sum over all errors.
+
+D accounts for possible future trends of the error, based on its current rate of change. A higher coefficient reduces overshooting and therefore helps the car to stay on the reference line.
+
+Parameter Tuning
+
+The P, I and D coefficients were tuned by hand. In the beginning only value for Kp was set which was causing the car to overshoot. In the next step Kd was gradually increased until the car was able to quickly reach it's reference. For Ki, a very small value was chosen since the simulator has basically no steering bias.
+
+The final values for the coefficients are:
+
+Kp = 0.22
+Ki = 0.0003
+Kd = 4
+
